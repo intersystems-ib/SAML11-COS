@@ -1,0 +1,1539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="IRIS" version="26" zv="IRIS for UNIX (Ubuntu Server LTS for x86-64 Containers) 2022.1.3 (Build 668U)" ts="2024-06-05 12:48:57">
+<Class name="IBSP.CONN.SAML11.CORE.Action">
+<Description>
+Decision Action</Description>
+<Super>%RegisteredObject,%XML.Adaptor</Super>
+<System>4</System>
+<TimeChanged>66976,35954.673871559</TimeChanged>
+<TimeCreated>61320,58257.651207</TimeCreated>
+<Inheritance>right</Inheritance>
+
+<Parameter name="XMLFORMAT">
+<Default>literal</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Default>urn:oasis:names:tc:SAML:1.0:assertion</Default>
+</Parameter>
+
+<Parameter name="ELEMENTQUALIFIED">
+<Default>0</Default>
+</Parameter>
+
+<Property name="Action">
+<Type>%String</Type>
+<Required>1</Required>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLPROJECTION" value="content"/>
+</Property>
+
+<Property name="Namespace">
+<Type>%xsd.anyURI</Type>
+<Required>1</Required>
+<Parameter name="XMLPROJECTION" value="attribute"/>
+</Property>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.Assertion">
+<Description>
+
+SAML Assert Token for SOAP Security header.
+PYDEMPORSIS: Added SuperClass SerialObject to include this as a Response Message</Description>
+<IncludeCode>%soap,%xmlDOM</IncludeCode>
+<Super>%RegisteredObject,,%SOAP.Security.Element,IBSP.CONN.SAML11.CORE.AssertionReference,%XML.Adaptor</Super>
+<System>4</System>
+<TimeChanged>66976,36925.485434634</TimeChanged>
+<TimeCreated>59573,85567.446859</TimeCreated>
+<Inheritance>right</Inheritance>
+
+<Parameter name="XMLTYPE">
+<Description>
+PYD</Description>
+<Default>Assertion</Default>
+</Parameter>
+
+<Parameter name="XMLNAME">
+<Description>
+"Assertion11Base";
+PYD</Description>
+<Default>Assertion</Default>
+</Parameter>
+
+<Parameter name="XMLFORMAT">
+<Description>
+11Base";</Description>
+<Default>literal</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Default>urn:oasis:names:tc:SAML:1.0:assertion</Default>
+</Parameter>
+
+<Parameter name="ELEMENTQUALIFIED">
+<Default>0</Default>
+</Parameter>
+
+<Parameter name="XMLPREFIX">
+<Default>saml</Default>
+</Parameter>
+
+<Parameter name="XMLSEQUENCE">
+<Description>
+Need to distinguish the 2 different possible Signature elements.</Description>
+<Default>1</Default>
+</Parameter>
+
+<Property name="SAMLID">
+<Description>
+PYD:Property SAMLID As %String(MAXLEN = "", XMLNAME = "ID", XMLPROJECTION = "attribute") [ Required ];</Description>
+<Type>%String</Type>
+<Required>1</Required>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLNAME" value="AssertionID"/>
+<Parameter name="XMLPROJECTION" value="attribute"/>
+</Property>
+
+<Property name="IssueInstant">
+<Type>%xsd.dateTime</Type>
+<Required>1</Required>
+<Parameter name="XMLPROJECTION" value="attribute"/>
+</Property>
+
+<Property name="Issuer">
+<Description>
+PYD: Property Issuer As IBSP.CONN.SAML11.CORE.NameID(XMLREF = 1) [ Required ];</Description>
+<Type>%String</Type>
+<Required>1</Required>
+<Parameter name="XMLPROJECTION" value="ATTRIBUTE"/>
+</Property>
+
+<Property name="MajorVersion">
+<Description>
+PYD+
+Property Version As %String(MAXLEN = "", XMLPROJECTION = "attribute") [ Required ];</Description>
+<Type>%String</Type>
+<InitialExpression>"1"</InitialExpression>
+<Parameter name="XMLPROJECTION" value="ATTRIBUTE"/>
+</Property>
+
+<Property name="MinorVersion">
+<Description>
+PYD+</Description>
+<Type>%String</Type>
+<InitialExpression>"1"</InitialExpression>
+<Parameter name="XMLPROJECTION" value="ATTRIBUTE"/>
+</Property>
+
+<Property name="Conditions">
+<Type>IBSP.CONN.SAML11.CORE.Conditions</Type>
+<Parameter name="XMLREF" value="1"/>
+</Property>
+
+<Property name="Statement">
+<Type>IBSP.CONN.SAML11.CORE.Statement</Type>
+<Collection>list</Collection>
+<Parameter name="CLASSNAME" value="1"/>
+<Parameter name="XMLPROJECTION" value="element"/>
+<Parameter name="XMLREF" value="1"/>
+<Parameter name="XMLTYPECONSTRAINT" value="choice"/>
+</Property>
+
+<Property name="Signature">
+<Description>
+PYD: Subject is  in the StatementList
+Property Subject As IBSP.CONN.SAML11.CORE.Subject(XMLREF = 1);
+PYDSig:  Property Signature As %XML.Security.Signature(REFELEMENTQUALIFIED = 1, REFNAMESPACE = "http://www.w3.org/2000/09/xmldsig#", XMLREF = 1);</Description>
+<Type>IBSP.CONN.SAML11.CORE.XML.Security.Signature</Type>
+<Parameter name="REFELEMENTQUALIFIED" value="1"/>
+<Parameter name="REFNAMESPACE" value="http://www.w3.org/2000/09/xmldsig#"/>
+<Parameter name="XMLREF" value="1"/>
+</Property>
+
+<Property name="WSSecuritySignature">
+<Description>
+PYD: Property Advice As list Of IBSP.CONN.SAML11.CORE.AssertionReference(XMLREF = 1, XMLTYPECONSTRAINT = "choice");
+PYDSig: Property WSSecuritySignature As %XML.Security.Signature(REFELEMENTQUALIFIED = 1, REFNAMESPACE = "http://www.w3.org/2000/09/xmldsig#", XMLNAME = "Signature", XMLREF = 1) [ Internal ];</Description>
+<Type>IBSP.CONN.SAML11.CORE.XML.Security.Signature</Type>
+<Internal>1</Internal>
+<Parameter name="REFELEMENTQUALIFIED" value="1"/>
+<Parameter name="REFNAMESPACE" value="http://www.w3.org/2000/09/xmldsig#"/>
+<Parameter name="XMLNAME" value="Signature"/>
+<Parameter name="XMLREF" value="1"/>
+</Property>
+
+<Property name="NodeId">
+<Description>
+Save the node id of this element in the tree during import.</Description>
+<Type>%Integer</Type>
+<Internal>1</Internal>
+<Parameter name="XMLPROJECTION" value="none"/>
+</Property>
+
+<Property name="X509Credentials">
+<Description>
+If SubjectConfirmation is based on X509 certificate, this is the X509 certificate class.
+This property is read-only.</Description>
+<Type>%SYS.X509Credentials</Type>
+<Internal>1</Internal>
+<Parameter name="XMLPROJECTION" value="none"/>
+</Property>
+
+<Method name="X509CredentialsGet">
+<Internal>1</Internal>
+<ReturnType>%SYS.X509Credentials</ReturnType>
+<Implementation><![CDATA[
+	//PYD
+	set error=""
+	//Set error=..Validate(.tokenType,.credentials)
+	
+	If error'="" Quit ""
+	
+	Quit credentials
+]]></Implementation>
+</Method>
+
+<Method name="GetX509Credentials">
+<Description>
+Get the X.509 credentials associated with this Security header element on input.</Description>
+<CodeMode>expression</CodeMode>
+<ReturnType>%SYS.X509Credentials</ReturnType>
+<Implementation><![CDATA[..X509Credentials
+]]></Implementation>
+</Method>
+
+<Method name="XMLNew">
+<Description>
+Save the node if when getting a new class instance.</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>document:%XML.Document,nodeId:%Integer,containerOref:%RegisteredObject=""</FormalSpec>
+<ReturnType>%RegisteredObject</ReturnType>
+<Implementation><![CDATA[
+	Set oref=..%New()
+	Set oref.NodeId=nodeId
+	Quit oref
+]]></Implementation>
+</Method>
+
+<Method name="Create">
+<Description>
+Create an unsigned SAML Asssertion</Description>
+<ClassMethod>1</ClassMethod>
+<ReturnType>IBSP.CONN.SAML11.CORE.Assertion</ReturnType>
+<Implementation><![CDATA[
+	Set assertion=..%New()
+	//PYDTEST: Set assertion.SAMLID=$system.Util.CreateGUID()
+	Set assertion.SAMLID="_23f8a4ad91cd56ff7715912dd6ab072f"
+	//pyd Set assertion.Version="2.0"
+	Quit assertion
+]]></Implementation>
+</Method>
+
+<Method name="CreateX509">
+<Description>
+Create an SAML Asssertion with WS-Security Signature based on X.509 credentials.</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>credentials:%SYS.X509Credentials,referenceOption:%Integer</FormalSpec>
+<ReturnType>IBSP.CONN.SAML11.CORE.Assertion</ReturnType>
+<Implementation><![CDATA[
+	#dim assertion As IBSP.CONN.SAML11.CORE.Assertion = ..Create()
+	
+	If $case($zobjclass(credentials),"%SYS.X509Credentials":0,"%SOAP.Security.BinarySecurityToken":0,:1) {
+		Set assertion.WSSecuritySignature=""
+		Set assertion.X509Credentials=""
+
+	} Else {
+		//PYDSig: #dim signature As %XML.Security.Signature 
+		#dim signature As IBSP.CONN.SAML11.CORE.XML.Security.Signature 
+		///PYD Set signature=##class(%XML.Security.Signature).CreateX509(.credentials,$$$SOAPWSIncludeNone,.referenceOption)
+		Set signature=##class(IBSP.CONN.SAML11.CORE.XML.Security.Signature).CreateX509(.credentials,$$$SOAPWSIncludeNone,.referenceOption)
+		Set assertion.WSSecuritySignature=signature
+		Set assertion.X509Credentials=credentials
+	}
+	
+	Quit assertion
+]]></Implementation>
+</Method>
+
+<UDLText name="T">
+<Content><![CDATA[
+/* PYD
+/// Validate and get the credentials from the Assertion's SubjectConfirmationData element 
+/// with holder-of-key method.
+/// If valid, set credentials argument and return "". 
+/// If not valid, return error code.
+Method Validate(ByRef tokenType As %String, ByRef credentials As %SYS.X509Credentials) As %String [ Internal ]
+{
+	Set error=""
+	Set (tokenType,credentials)=""
+	
+	#dim subject As SAML.SAML11.Subject = ..Subject
+	If '$isobject(subject) Quit ""
+	#dim subjectConfirmation As SAML.SAML11.SubjectConfirmation
+	#dim subjectConfirmationData As SAML.SAML11.SubjectConfirmationData
+	For i=1:1:subject.SubjectConfirmation.Count() {
+		Set subjectConfirmation=subject.SubjectConfirmation.GetAt(i)
+		If '$isobject(subjectConfirmation) Continue
+		If subjectConfirmation.Method'=$$$SAMLHolderOfKey Continue
+
+		Set subjectConfirmationData=subjectConfirmation.SubjectConfirmationData
+		If '$isobject(subjectConfirmationData) Continue
+
+		If $case($zobjclass(subjectConfirmationData),"SAML.SAML11.SubjectConfirmationData":0,"SAML.SAML11.KeyInfoConfirmationData":0,:1) Continue
+		If '$isobject(subjectConfirmationData.KeyInfo) Continue
+		If subjectConfirmationData.KeyInfo.Count()=0 Continue
+
+		For j=1:1:subjectConfirmationData.KeyInfo.Count() {
+			Set error=subjectConfirmationData.KeyInfo.GetAt(j).Validate(.tokenType)
+			If error'="" Quit
+			If tokenType="" {
+				$$$SOAPLogSecurity("    Unsupported tokenType for SAML reference in KeyInfo")
+				Set error="UnsupportedAlgorithm"
+				Quit
+			}
+			Set credentials=subjectConfirmationData.KeyInfo.GetAt(j).X509Credentials
+			If credentials'="" Quit
+		}
+		If (error'="") || (credentials'="") Quit
+	}
+	
+	If error'="" Set ..X509Credentials=credentials
+
+	Set tokenType=$$$SOAPWSSAML
+	
+	Quit error
+}
+*/
+]]></Content>
+</UDLText>
+
+<Method name="InitializeForService">
+<Description>
+Initialize the signature in the SAML assertion.</Description>
+<Internal>1</Internal>
+<FormalSpec>service:%SOAP.WebBase,header:%SOAP.Security.Header</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	If ..SAMLID="" Set ..SAMLID=$system.Util.CreateGUID()
+	
+	Set sc=$$$OK
+	If $isobject(..WSSecuritySignature) {
+		Set ref=##class(%XML.Security.Reference).Create(..SAMLID,$$$SOAPWSEnvelopedSignature_","_$$$SOAPWSexcc14n)
+		Do ..WSSecuritySignature.AddReference(ref)
+		Set sc=..WSSecuritySignature.InitializeForService(service,header)
+	}
+	
+	Quit sc
+]]></Implementation>
+</Method>
+
+<Method name="Perform">
+<Description>
+Complete the Signature element by adding the Reference elements to the 
+SignedInfo based on the SignatureOptions and computing the signature value.</Description>
+<Internal>1</Internal>
+<FormalSpec>messageStream:%BinaryStream,header:%SOAP.Security.Header</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	Set sc=$$$OK
+	If $isobject(..WSSecuritySignature) {
+		Set sc=..WSSecuritySignature.Perform(messageStream,header)
+	}
+	
+	Quit sc
+]]></Implementation>
+</Method>
+
+<Method name="Reset">
+<Description>
+Reset the SAML assertion.</Description>
+<Internal>1</Internal>
+<Implementation><![CDATA[
+	If $isobject(..WSSecuritySignature) {
+		Do ..WSSecuritySignature.Reset()
+	}
+]]></Implementation>
+</Method>
+
+<Method name="ValidateElement">
+<Description>
+Validate the SAML assertion.
+If invalid return an error code.</Description>
+<Internal>1</Internal>
+<FormalSpec>document:%XML.Document,service:%SOAP.WebBase</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	If ..SAMLID'="" $$$xmlSetNodeById(document.DocumentId,..SAMLID,..NodeId)
+	
+	If $isobject(..WSSecuritySignature) {
+		$$$SOAPLogSecurity("    checking signature for SAML token")
+		Set error=..WSSecuritySignature.ValidateElement(document,service)
+		$$$SOAPLogSecurity("    signature validation for SAML token returned: "_error)
+		If error'="" Quit error
+	}
+	
+	If '$isobject(..Issuer) || (..Issuer.NameID="") {
+		$$$SOAPLogSecurity("    unspecified Issuer for SAML token")
+		Quit "InvalidSecurityToken"
+	}
+	
+	Quit ""
+]]></Implementation>
+</Method>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.AssertionIDRef">
+<Description>
+Reference an Assertion using an ID</Description>
+<Super>IBSP.CONN.SAML11.CORE.AssertionReference</Super>
+<System>4</System>
+<TimeChanged>66976,36938.439727623</TimeChanged>
+<TimeCreated>61319,61324.846868</TimeCreated>
+
+<Property name="ID">
+<Type>%String</Type>
+<Required>1</Required>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLPROJECTION" value="content"/>
+</Property>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.AssertionReference">
+<Description>
+Abstract base class for all references to assertions</Description>
+<Abstract>1</Abstract>
+<Super>%RegisteredObject,,%XML.Adaptor</Super>
+<System>4</System>
+<TimeChanged>66976,36017.95497293</TimeChanged>
+<TimeCreated>61319,61033.255142</TimeCreated>
+<Inheritance>right</Inheritance>
+
+<Parameter name="XMLFORMAT">
+<Default>literal</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Default>urn:oasis:names:tc:SAML:1.0:assertion</Default>
+</Parameter>
+
+<Parameter name="ELEMENTQUALIFIED">
+<Default>0</Default>
+</Parameter>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.AssertionURIRef">
+<Description>
+Reference an Assertion using a URI</Description>
+<Super>IBSP.CONN.SAML11.CORE.AssertionReference</Super>
+<System>4</System>
+<TimeChanged>66976,36953.049142522</TimeChanged>
+<TimeCreated>61319,61199.701729</TimeCreated>
+
+<Property name="URI">
+<Type>%xsd.anyURI</Type>
+<Required>1</Required>
+<Parameter name="XMLPROJECTION" value="content"/>
+</Property>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.Attribute">
+<Description>
+An Attribute</Description>
+<Super>%RegisteredObject,%XML.Adaptor</Super>
+<System>4</System>
+<TimeChanged>66976,36964.87737062</TimeChanged>
+<TimeCreated>61216,47953.073764</TimeCreated>
+<Inheritance>right</Inheritance>
+
+<Parameter name="XMLNAME">
+<Default>Attribute</Default>
+</Parameter>
+
+<Parameter name="XMLFORMAT">
+<Default>literal</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Default>urn:oasis:names:tc:SAML:1.0:assertion</Default>
+</Parameter>
+
+<Parameter name="ELEMENTQUALIFIED">
+<Default>0</Default>
+</Parameter>
+
+<Property name="AttributeValue">
+<Description>
+Property AttributeValue As list Of IBSP.CONN.SAML11.CORE.AttributeValue(XMLPROJECTION = "element", XMLREF = 1, XMLTYPECONSTRAINT = "choice");</Description>
+<Type>IBSP.CONN.SAML11.CORE.AttributeValue</Type>
+<Collection>list</Collection>
+<Parameter name="CLASSNAME" value="1"/>
+<Parameter name="REFELEMENTQUALIFIED" value="0"/>
+<Parameter name="REFNAMESPACE" value="urn:oasis:names:tc:SAML:1.0:assertion"/>
+<Parameter name="XMLPROJECTION" value="element"/>
+<Parameter name="XMLREF" value="1"/>
+</Property>
+
+<Property name="AttributeName">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLPROJECTION" value="ATTRIBUTE"/>
+</Property>
+
+<Property name="AttributeNamespace">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLPROJECTION" value="ATTRIBUTE"/>
+</Property>
+
+<UDLText name="T">
+<Content><![CDATA[
+/*
+Property Name As %String(MAXLEN = "", XMLPROJECTION = "attribute") [ Required ];
+Property NameFormat As %xsd.anyURI(XMLPROJECTION = "attribute");
+Property FriendlyName As %String(MAXLEN = "", XMLPROJECTION = "attribute") [ Required ];
+*/
+]]></Content>
+</UDLText>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.AttributeStatement">
+<Description>
+Attribute Statement</Description>
+<Super>IBSP.CONN.SAML11.CORE.Statement</Super>
+<System>4</System>
+<TimeChanged>66976,36984.851251505</TimeChanged>
+<TimeCreated>61216,49453.90079</TimeCreated>
+
+<Parameter name="XMLFORMAT">
+<Default>literal</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Default>urn:oasis:names:tc:SAML:1.0:assertion</Default>
+</Parameter>
+
+<Parameter name="ELEMENTQUALIFIED">
+<Default>0</Default>
+</Parameter>
+
+<Property name="Subject">
+<Description>
+PYD</Description>
+<Type>IBSP.CONN.SAML11.CORE.Subject</Type>
+<Parameter name="XMLREF" value="1"/>
+</Property>
+
+<Property name="Attribute">
+<Description>
+PYD: Property Attribute As list Of %XML.Adaptor(CLASSNAME = 1, XMLCHOICELIST = "IBSP.CONN.SAML11.CORE.Attribute,IBSP.CONN.SAML11.CORE.EncryptedAttribute", XMLPROJECTION = "element", XMLREF = 1, XMLTYPECONSTRAINT = "choice") [ Required ];</Description>
+<Type>IBSP.CONN.SAML11.CORE.Attribute</Type>
+<Collection>list</Collection>
+<Required>1</Required>
+<Parameter name="CLASSNAME" value="1"/>
+<Parameter name="XMLPROJECTION" value="element"/>
+<Parameter name="XMLREF" value="1"/>
+</Property>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.AttributeStringValue">
+<Description><![CDATA[
+Subclass of IBSP.CONN.SAML11.CORE.AttributeValue which allows xsi:type attriibute on input
+
+This class is used internally by Cach&eacute;. You should not make direct
+use of it within your applications. There is no guarantee made about either
+the behavior or future operation of this class.]]></Description>
+<Super>IBSP.CONN.SAML11.CORE.AttributeValue</Super>
+<System>4</System>
+<TimeChanged>66976,36997.040108031</TimeChanged>
+<TimeCreated>61338,76425.934576</TimeCreated>
+
+<Parameter name="XMLTYPE">
+<Default>string</Default>
+</Parameter>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.AttributeValue">
+<Description>
+AttributeValue
+This class allows string value, XML content or instance of subclass of IBSP.CONN.SAML11.CORE.AttributeValueAbstract.
+The structure of this class reflects that we do not have a mapping for xs:anyType.</Description>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>%RegisteredObject,%XML.Adaptor</Super>
+<System>4</System>
+<TimeChanged>66976,37030.952209476</TimeChanged>
+<TimeCreated>61320,83588.440429</TimeCreated>
+<Inheritance>right</Inheritance>
+
+<Parameter name="XMLFORMAT">
+<Default>literal</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Default>urn:oasis:names:tc:SAML:1.0:assertion</Default>
+</Parameter>
+
+<Parameter name="ELEMENTQUALIFIED">
+<Default>0</Default>
+</Parameter>
+
+<Property name="value">
+<Description>
+Set any string value as the attribute.	</Description>
+<Type>%XML.String</Type>
+<Internal>1</Internal>
+<Private>1</Private>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLPROJECTION" value="content"/>
+</Property>
+
+<Property name="element">
+<Description>
+Dummy property to introduce xsi:type attribute
+PYD: Do not show type as it creates problems with SIRE
+Property type As %String(REFNAMESPACE = "http://www.w3.org/2001/XMLSchema-instance", XMLPROJECTION = "attribute", XMLREF = 1) [ Internal, Private ];
+ Subclasses of IBSP.CONN.SAML11.CORE.AttributeValueElement can be used as values which
+ are an element as a child of AttributeValue.</Description>
+<Type>IBSP.CONN.SAML11.CORE.AttributeValueElement</Type>
+<Internal>1</Internal>
+<Private>1</Private>
+<Parameter name="XMLPROJECTION" value="element"/>
+<Parameter name="XMLREF" value="1"/>
+<Parameter name="XMLTYPECONSTRAINT" value="choice"/>
+</Property>
+
+<Method name="SetXML">
+<Description>
+Set AttributeValue as XML content</Description>
+<FormalSpec>xml:%String</FormalSpec>
+<Implementation><![CDATA[
+	Set ..value=xml
+	//PYD: set ..type=""
+]]></Implementation>
+</Method>
+
+<Method name="SetString">
+<Description>
+Set AttributeValue as a xs:string</Description>
+<FormalSpec>string:%String</FormalSpec>
+<Implementation><![CDATA[
+	Set ..value=$zcvt(string,"O","XML")
+	//PYD: set ..type="s:string"
+]]></Implementation>
+</Method>
+
+<Method name="SetElement">
+<Description>
+Set AttributeValue as a child element
+which maps to a subclass of IBSP.CONN.SAML11.CORE.AttributeValueElement.</Description>
+<FormalSpec>element:IBSP.CONN.SAML11.CORE.AttributeValueElement</FormalSpec>
+<Implementation><![CDATA[
+	Set ..element=element
+	Set ..value=""
+	//PYD: set ..type=""
+]]></Implementation>
+</Method>
+
+<Method name="GetXML">
+<Description>
+Get content of AttributeValue as XML.</Description>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[	Quit ..value
+]]></Implementation>
+</Method>
+
+<Method name="IsString">
+<Description>
+Return true if content of AttributeValue is a string.</Description>
+<ReturnType>%Boolean</ReturnType>
+<Implementation><![CDATA[	Quit ..value'["<"
+]]></Implementation>
+</Method>
+
+<Method name="GetString">
+<Description>
+Get content of AttributeValue as a xs:string.</Description>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[	Quit $zcvt(..value,"I","XML")
+]]></Implementation>
+</Method>
+
+<Method name="IsElement">
+<Description>
+Return true if content of AttributeValue is a child element 
+which maps to a subclass of IBSP.CONN.SAML11.CORE.AttributeValueElement.</Description>
+<ReturnType>%Boolean</ReturnType>
+<Implementation><![CDATA[	Quit $isobject(..element)
+]]></Implementation>
+</Method>
+
+<Method name="GetElement">
+<Description>
+Get content of AttributeValue as a xs:string.</Description>
+<ReturnType>IBSP.CONN.SAML11.CORE.AttributeValueElement</ReturnType>
+<Implementation><![CDATA[	Quit ..element
+]]></Implementation>
+</Method>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.AttributeValueAbstract">
+<Description>
+Abstract base class for value within an AttributeValue.
+PYD ws not Abstract</Description>
+<Abstract>1</Abstract>
+<Super>%RegisteredObject,%XML.Adaptor</Super>
+<System>4</System>
+<TimeChanged>66976,36094.554857178</TimeChanged>
+<TimeCreated>61320,84035.845661</TimeCreated>
+<Inheritance>right</Inheritance>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.AttributeValueElement">
+<Description>
+ Subclasses of IBSP.CONN.SAML11.CORE..AttributeValueElement can be used as values which
+ are an element as a child of AttributeValue.
+PYD was abstract</Description>
+<Super>%RegisteredObject,%XML.Adaptor</Super>
+<System>4</System>
+<TimeChanged>66976,37054.929822736</TimeChanged>
+<TimeCreated>61330,58486.674134</TimeCreated>
+<Inheritance>right</Inheritance>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.AudienceRestriction">
+<Description>
+AudienceRestriction condition</Description>
+<Super>IBSP.CONN.SAML11.CORE.Condition</Super>
+<System>4</System>
+<TimeChanged>66976,37257.759610257</TimeChanged>
+<TimeCreated>61319,59199.546591</TimeCreated>
+
+<Property name="Audience">
+<Type>%xsd.anyURI</Type>
+<Collection>list</Collection>
+<Required>1</Required>
+<Parameter name="XMLPROJECTION" value="element"/>
+<Parameter name="XMLREF" value="1"/>
+</Property>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.AuthnContext">
+<Description>
+Authentication Context</Description>
+<Super>%RegisteredObject,%XML.Adaptor</Super>
+<System>4</System>
+<TimeChanged>66976,38082.063135334</TimeChanged>
+<TimeCreated>61204,74719.545062</TimeCreated>
+<Inheritance>right</Inheritance>
+
+<Parameter name="XMLFORMAT">
+<Default>literal</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Default>urn:oasis:names:tc:SAML:1.0:assertion</Default>
+</Parameter>
+
+<Parameter name="ELEMENTQUALIFIED">
+<Default>0</Default>
+</Parameter>
+
+<Property name="AuthnContextClassRef">
+<Type>%xsd.anyURI</Type>
+<Parameter name="XMLREF" value="1"/>
+</Property>
+
+<Property name="AuthnContextDecl">
+<Type>%XML.Adaptor</Type>
+<Parameter name="XMLCHOICELIST" value="IBSP.CONN.SAML11.CORE.AuthnContextDecl,IBSP.CONN.SAML11.CORE.AuthnContextDeclRef"/>
+<Parameter name="XMLPROJECTION" value="element"/>
+<Parameter name="XMLREF" value="1"/>
+<Parameter name="XMLTYPECONSTRAINT" value="choice"/>
+</Property>
+
+<Property name="AuthenticatingAuthority">
+<Type>%xsd.anyURI</Type>
+<Collection>list</Collection>
+<Parameter name="XMLPROJECTION" value="element"/>
+<Parameter name="XMLREF" value="1"/>
+</Property>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.AuthnContextDecl">
+<Description>
+Authentication Content Declaration</Description>
+<Super>%RegisteredObject,%XML.Adaptor</Super>
+<System>4</System>
+<TimeChanged>66976,36145.58508872</TimeChanged>
+<TimeCreated>61320,57263.476192</TimeCreated>
+<Inheritance>right</Inheritance>
+
+<Parameter name="XMLFORMAT">
+<Default>literal</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Default>urn:oasis:names:tc:SAML:1.0:assertion</Default>
+</Parameter>
+
+<Parameter name="ELEMENTQUALIFIED">
+<Default>0</Default>
+</Parameter>
+
+<Property name="Decl">
+<Type>%XML.String</Type>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLPROJECTION" value="content"/>
+</Property>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.AuthnContextDeclRef">
+<Description>
+Reference to an Authentication Content Declaration</Description>
+<Super>%RegisteredObject,%XML.Adaptor</Super>
+<System>4</System>
+<TimeChanged>66976,36158.277698142</TimeChanged>
+<TimeCreated>61320,57174.058857</TimeCreated>
+<Inheritance>right</Inheritance>
+
+<Parameter name="XMLFORMAT">
+<Default>literal</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Default>urn:oasis:names:tc:SAML:1.0:assertion</Default>
+</Parameter>
+
+<Parameter name="ELEMENTQUALIFIED">
+<Default>0</Default>
+</Parameter>
+
+<Property name="URI">
+<Type>%xsd.anyURI</Type>
+<Parameter name="XMLPROJECTION" value="content"/>
+</Property>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.AuthnStatement">
+<Description>
+Authentication Statement</Description>
+<Super>IBSP.CONN.SAML11.CORE.Statement</Super>
+<System>4</System>
+<TimeChanged>66976,37077.225204659</TimeChanged>
+<TimeCreated>61203,44568.628236</TimeCreated>
+
+<Parameter name="XMLFORMAT">
+<Default>literal</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Default>urn:oasis:names:tc:SAML:1.0:assertion</Default>
+</Parameter>
+
+<Parameter name="ELEMENTQUALIFIED">
+<Default>0</Default>
+</Parameter>
+
+<Property name="SubjectLocality">
+<Type>IBSP.CONN.SAML11.CORE.SubjectLocality</Type>
+<Parameter name="XMLREF" value="1"/>
+</Property>
+
+<Property name="AuthnContext">
+<Type>IBSP.CONN.SAML11.CORE.AuthnContext</Type>
+<Required>1</Required>
+<Parameter name="XMLREF" value="1"/>
+</Property>
+
+<Property name="AuthnInstant">
+<Type>%xsd.dateTime</Type>
+<Required>1</Required>
+<Parameter name="XMLPROJECTION" value="attribute"/>
+</Property>
+
+<Property name="SessionIndex">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLPROJECTION" value="attribute"/>
+</Property>
+
+<Property name="SessionNotOnOrAfter">
+<Type>%xsd.dateTime</Type>
+<Parameter name="XMLPROJECTION" value="attribute"/>
+</Property>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.AuthzDecisionStatement">
+<Description>
+Authorization Decision Statement
+PYD Emporsis: Modificado de IBSP.CONN.SAML11.CORE.Statement as IBSP.CONN.SAML11.CORE.AttributeStatement</Description>
+<Super>IBSP.CONN.SAML11.CORE.Statement</Super>
+<System>4</System>
+<TimeChanged>66976,37094.552793487</TimeChanged>
+<TimeCreated>61216,78001.346584</TimeCreated>
+
+<Parameter name="XMLNAME">
+<Description>
+PYD Emporsis</Description>
+<Default>AuthorizationDecisionStatement</Default>
+</Parameter>
+
+<Parameter name="XMLFORMAT">
+<Default>literal</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Default>urn:oasis:names:tc:SAML:1.0:assertion</Default>
+</Parameter>
+
+<Property name="Subject">
+<Description>
+PYD+</Description>
+<Type>IBSP.CONN.SAML11.CORE.Subject</Type>
+<Parameter name="XMLREF" value="1"/>
+</Property>
+
+<Property name="Action">
+<Type>IBSP.CONN.SAML11.CORE.Action</Type>
+<Collection>list</Collection>
+<Parameter name="XMLPROJECTION" value="element"/>
+<Parameter name="XMLREF" value="1"/>
+</Property>
+
+<Property name="Evidence">
+<Type>IBSP.CONN.SAML11.CORE.Evidence</Type>
+<Parameter name="XMLREF" value="1"/>
+</Property>
+
+<Property name="Decision">
+<Type>%String</Type>
+<Required>1</Required>
+<Parameter name="VALUELIST" value=",Permit,Deny,Indeterminate"/>
+<Parameter name="XMLPROJECTION" value="attribute"/>
+</Property>
+
+<Property name="Resource">
+<Type>%xsd.anyURI</Type>
+<Required>1</Required>
+<Parameter name="XMLPROJECTION" value="attribute"/>
+</Property>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.BaseID">
+<Description>
+Abstract base class for IDs.</Description>
+<Abstract>1</Abstract>
+<Super>%RegisteredObject,%XML.Adaptor</Super>
+<System>4</System>
+<TimeChanged>66976,36195.197796964</TimeChanged>
+<TimeCreated>61319,63584.482953</TimeCreated>
+<Inheritance>right</Inheritance>
+
+<Parameter name="XMLFORMAT">
+<Default>literal</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Default>urn:oasis:names:tc:SAML:1.0:assertion</Default>
+</Parameter>
+
+<Parameter name="ELEMENTQUALIFIED">
+<Default>0</Default>
+</Parameter>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.Condition">
+<Description>
+Abstract base class for Conditions</Description>
+<Abstract>1</Abstract>
+<Super>%RegisteredObject,%XML.Adaptor</Super>
+<System>4</System>
+<TimeChanged>66976,36206.162120798</TimeChanged>
+<TimeCreated>61319,58899.776527</TimeCreated>
+<Inheritance>right</Inheritance>
+
+<Parameter name="XMLFORMAT">
+<Default>literal</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Default>urn:oasis:names:tc:SAML:1.0:assertion</Default>
+</Parameter>
+
+<Parameter name="ELEMENTQUALIFIED">
+<Default>0</Default>
+</Parameter>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.Conditions">
+<Description>
+List of Conditions</Description>
+<Super>%RegisteredObject,%XML.Adaptor</Super>
+<System>4</System>
+<TimeChanged>66976,38100.875066625</TimeChanged>
+<TimeCreated>61322,51776.522869</TimeCreated>
+<Inheritance>right</Inheritance>
+
+<Parameter name="XMLFORMAT">
+<Default>literal</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Default>urn:oasis:names:tc:SAML:1.0:assertion</Default>
+</Parameter>
+
+<Parameter name="ELEMENTQUALIFIED">
+<Default>0</Default>
+</Parameter>
+
+<Property name="NotBefore">
+<Description>
+PYD: Not used.
+Property Condition As list Of IBSP.CONN.SAML11.CORE.Condition(XMLPROJECTION = "element", XMLREF = 1, XMLTYPECONSTRAINT = "choice");</Description>
+<Type>%xsd.dateTime</Type>
+<Parameter name="XMLPROJECTION" value="attribute"/>
+</Property>
+
+<Property name="NotOnOrAfter">
+<Type>%xsd.dateTime</Type>
+<Parameter name="XMLPROJECTION" value="attribute"/>
+</Property>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.EncryptedAssertion">
+<Description>
+An encrypted Assertion</Description>
+<Super>IBSP.CONN.SAML11.CORE.AssertionReference,IBSP.CONN.SAML11.CORE.EncryptedElement</Super>
+<System>4</System>
+<TimeChanged>66976,37115.048931721</TimeChanged>
+<TimeCreated>61319,61420.387824</TimeCreated>
+<Inheritance>right</Inheritance>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.EncryptedAttribute">
+<Description>
+An Encrypted Attribute</Description>
+<Super>IBSP.CONN.SAML11.CORE.EncryptedElement</Super>
+<System>4</System>
+<TimeChanged>66976,37121.127065933</TimeChanged>
+<TimeCreated>61320,58514.294596</TimeCreated>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.EncryptedElement">
+<Description>
+Base class for an encrypted assertion, attribute or id.</Description>
+<Abstract>1</Abstract>
+<Super>%RegisteredObject,%XML.Adaptor</Super>
+<System>4</System>
+<TimeChanged>66976,36250.820766739</TimeChanged>
+<TimeCreated>61319,61766.240103</TimeCreated>
+<Inheritance>right</Inheritance>
+
+<Parameter name="XMLFORMAT">
+<Default>literal</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Default>urn:oasis:names:tc:SAML:1.0:assertion</Default>
+</Parameter>
+
+<Parameter name="ELEMENTQUALIFIED">
+<Default>0</Default>
+</Parameter>
+
+<Property name="EncryptedData">
+<Type>%XML.Security.EncryptedData</Type>
+<Required>1</Required>
+<Parameter name="REFELEMENTQUALIFIED" value="1"/>
+<Parameter name="REFNAMESPACE" value="http://www.w3.org/2001/04/xmlenc#"/>
+<Parameter name="XMLREF" value="1"/>
+</Property>
+
+<Property name="EncryptedKey">
+<Type>%XML.Security.EncryptedKey</Type>
+<Collection>list</Collection>
+<Parameter name="REFELEMENTQUALIFIED" value="1"/>
+<Parameter name="REFNAMESPACE" value="http://www.w3.org/2001/04/xmlenc#"/>
+<Parameter name="XMLPROJECTION" value="element"/>
+<Parameter name="XMLREF" value="1"/>
+</Property>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.EncryptedID">
+<Description>
+An encrypted name ID</Description>
+<Super>IBSP.CONN.SAML11.CORE.BaseID,IBSP.CONN.SAML11.CORE.EncryptedElement</Super>
+<System>4</System>
+<TimeChanged>66976,37135.938137049</TimeChanged>
+<TimeCreated>61319,63957.697669</TimeCreated>
+<Inheritance>right</Inheritance>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.Evidence">
+<Description>
+Evidence for AuthzDecisionStatement</Description>
+<Super>%RegisteredObject,%XML.Adaptor</Super>
+<System>4</System>
+<TimeChanged>66976,37144.922327624</TimeChanged>
+<TimeCreated>61324,77834.214942</TimeCreated>
+<Inheritance>right</Inheritance>
+
+<Parameter name="XMLFORMAT">
+<Default>literal</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Default>urn:oasis:names:tc:SAML:1.0:assertion</Default>
+</Parameter>
+
+<Parameter name="ELEMENTQUALIFIED">
+<Default>0</Default>
+</Parameter>
+
+<Property name="Evidence">
+<Type>IBSP.CONN.SAML11.CORE.AssertionReference</Type>
+<Collection>list</Collection>
+<Parameter name="XMLPROJECTION" value="element"/>
+<Parameter name="XMLREF" value="1"/>
+<Parameter name="XMLTYPECONSTRAINT" value="choice"/>
+</Property>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.KeyInfoConfirmationData">
+<Description>
+Data for SubjectConfirmation wit hKeyInfo</Description>
+<Super>IBSP.CONN.SAML11.CORE.SubjectConfirmationData</Super>
+<System>4</System>
+<TimeChanged>66976,37154.787464503</TimeChanged>
+<TimeCreated>61320,77171.683433</TimeCreated>
+
+<Property name="KeyInfo">
+<Type>%XML.Security.KeyInfo</Type>
+<Collection>list</Collection>
+<Parameter name="REFELEMENTQUALIFIED" value="1"/>
+<Parameter name="REFNAMESPACE" value="http://www.w3.org/2000/09/xmldsig#"/>
+<Parameter name="XMLPROJECTION" value="element"/>
+<Parameter name="XMLREF" value="1"/>
+</Property>
+
+<Property name="content">
+<Description>
+ Override the content field and make it invisible.</Description>
+<Type>%XML.String</Type>
+<Internal>1</Internal>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLPROJECTION" value="none"/>
+</Property>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.NameIdentifier">
+<ProcedureBlock>1</ProcedureBlock>
+<Super>%RegisteredObject,%XML.Adaptor</Super>
+<System>4</System>
+<TimeChanged>66976,36692.660545248</TimeChanged>
+<TimeCreated>61320,83588.440429</TimeCreated>
+<Inheritance>right</Inheritance>
+
+<Parameter name="XMLFORMAT">
+<Default>literal</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Default>urn:oasis:names:tc:SAML:1.0:assertion</Default>
+</Parameter>
+
+<Parameter name="ELEMENTQUALIFIED">
+<Default>0</Default>
+</Parameter>
+
+<Property name="Format">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLPROJECTION" value="ATTRIBUTE"/>
+</Property>
+
+<Property name="value">
+<Description>
+Set any string value as the attribute.	</Description>
+<Type>%XML.String</Type>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLPROJECTION" value="content"/>
+</Property>
+
+<Property name="NameQualifier">
+<Description>
+Set any string value as the attribute.	</Description>
+<Type>%XML.String</Type>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLPROJECTION" value="ATTRIBUTE"/>
+</Property>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.OneTimeUse">
+<Description>
+OneTimeUse condition</Description>
+<Super>IBSP.CONN.SAML11.CORE.Condition</Super>
+<System>4</System>
+<TimeChanged>66976,37175.375347263</TimeChanged>
+<TimeCreated>61319,59538.213493</TimeCreated>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.ProxyRestriction">
+<Description>
+ProxyRestriction condition</Description>
+<Super>IBSP.CONN.SAML11.CORE.Condition</Super>
+<System>4</System>
+<TimeChanged>66976,37181.455579868</TimeChanged>
+<TimeCreated>61319,59444.462275</TimeCreated>
+
+<Property name="Audience">
+<Type>%xsd.anyURI</Type>
+<Collection>list</Collection>
+<Parameter name="XMLPROJECTION" value="element"/>
+<Parameter name="XMLREF" value="1"/>
+</Property>
+
+<Property name="Count">
+<Type>%xsd.nonNegativeInteger</Type>
+<Parameter name="XMLPROJECTION" value="attribute"/>
+</Property>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.Statement">
+<Description>
+Abstract base statement class</Description>
+<Abstract>1</Abstract>
+<Super>%RegisteredObject,%XML.Adaptor</Super>
+<System>4</System>
+<TimeChanged>66976,36725.523327916</TimeChanged>
+<TimeCreated>61319,62789.775486</TimeCreated>
+<Inheritance>right</Inheritance>
+
+<Parameter name="XMLFORMAT">
+<Default>literal</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Default>urn:oasis:names:tc:SAML:1.0:assertion</Default>
+</Parameter>
+
+<Parameter name="ELEMENTQUALIFIED">
+<Default>0</Default>
+</Parameter>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.Subject">
+<Description>
+A SAML Subject</Description>
+<IncludeCode>%soap</IncludeCode>
+<Super>%RegisteredObject,%XML.Adaptor</Super>
+<System>4</System>
+<TimeChanged>66976,37204.152606664</TimeChanged>
+<TimeCreated>61201,79624.931887</TimeCreated>
+<Inheritance>right</Inheritance>
+
+<Parameter name="XMLFORMAT">
+<Default>literal</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Default>urn:oasis:names:tc:SAML:1.0:assertion</Default>
+</Parameter>
+
+<Parameter name="ELEMENTQUALIFIED">
+<Default>0</Default>
+</Parameter>
+
+<Property name="NameIdentifier">
+<Description>
+PYD: Changed</Description>
+<Type>IBSP.CONN.SAML11.CORE.NameIdentifier</Type>
+<Parameter name="XMLREF" value="1"/>
+</Property>
+
+<UDLText name="T">
+<Content><![CDATA[
+/*
+Property NameID As SAML.SAML11.BaseID(XMLREF = 1, XMLTYPECONSTRAINT = "choice");
+
+Property SubjectConfirmation As list Of SAML.SAML11.SubjectConfirmation(XMLPROJECTION = "element", XMLREF = 1);
+*/
+]]></Content>
+</UDLText>
+
+<UDLText name="T">
+<Content><![CDATA[
+/*
+/// Create SubjectConfirmation with specified SubjectConfirmation method.
+/// The method argument should be $$$SAMLSenderVouches, $$$SAMLHolderOfKey or $$$SAMLBearer.
+/// The NameID field must still be set for the Subject.
+Method AddConfirmation(method As %String) As %Status
+{
+	#dim subjectConfirmation As SAML.SAML11.SubjectConfirmation = ##class(SAML.SAML11.SubjectConfirmation).%New()
+	Set subjectConfirmation.Method=method
+	Do ..SubjectConfirmation.Insert(subjectConfirmation)
+	
+	Quit $$$OK
+}
+
+/// Create SubjectConfirmation and associated KeyInfo for holder-of-key SubjectConfirmation based X.509 credentials.
+/// The NameID field must still be set for the Subject.
+Method AddX509Confirmation(credentials As %SYS.X509Credentials, referenceOption As %Integer) As %Status
+{
+	If referenceOption=$$$SOAPWSReferenceDirect {
+		Set sc=$$$ERROR($$$SOAPBadLogin,"BinarySecurityToken not supported for SubjectConfirmation")
+		$$$SOAPLogSecurity("    BinarySecurityToken not supported for SubjectConfirmation")
+		Quit sc
+	}
+	
+	#dim subjectConfirmation As SAML.SAML11.SubjectConfirmation = ##class(SAML.SAML11.SubjectConfirmation).%New()
+	#dim subjectConfirmationData As SAML.SAML11.SubjectConfirmationData = ##class(SAML.SAML11.SubjectConfirmationData).%New()
+	#dim keyinfo As %XML.Security.KeyInfo = ##class(%XML.Security.KeyInfo).CreateX509(.credentials,.referenceOption)
+	If keyinfo="" {
+		Set sc=$$$ERROR($$$SOAPBadLogin,"Unable to create KeyInfo for SubjectConfirmation")
+		$$$SOAPLogSecurity("    Unable to create KeyInfo for SubjectConfirmation")
+		Quit sc
+	}
+
+	Do ..SubjectConfirmation.Insert(subjectConfirmation)
+	Set subjectConfirmation.SubjectConfirmationData=subjectConfirmationData
+	Set subjectConfirmation.Method=$$$SAMLHolderOfKey
+	Do subjectConfirmationData.KeyInfo.Insert(keyinfo)
+	
+	Quit $$$OK
+}
+*/
+]]></Content>
+</UDLText>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.SubjectConfirmation">
+<Description>
+A SAML SubjectConfirmation</Description>
+<Super>%RegisteredObject,%XML.Adaptor</Super>
+<System>4</System>
+<TimeChanged>66976,37217.976350436</TimeChanged>
+<TimeCreated>61319,65489.152375</TimeCreated>
+<Inheritance>right</Inheritance>
+
+<Parameter name="XMLFORMAT">
+<Default>literal</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Default>urn:oasis:names:tc:SAML:1.0:assertion</Default>
+</Parameter>
+
+<Parameter name="ELEMENTQUALIFIED">
+<Default>0</Default>
+</Parameter>
+
+<Property name="NameID">
+<Type>IBSP.CONN.SAML11.CORE.BaseID</Type>
+<Parameter name="XMLREF" value="1"/>
+<Parameter name="XMLTYPECONSTRAINT" value="choice"/>
+</Property>
+
+<Property name="SubjectConfirmationData">
+<Type>IBSP.CONN.SAML11.CORE.SubjectConfirmationData</Type>
+<Parameter name="XMLREF" value="1"/>
+</Property>
+
+<Property name="Method">
+<Type>%xsd.anyURI</Type>
+<Required>1</Required>
+<Parameter name="XMLPROJECTION" value="attribute"/>
+</Property>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.SubjectConfirmationData">
+<Description>
+Data for SubjectConfirmation</Description>
+<Super>%RegisteredObject,%XML.Adaptor</Super>
+<System>4</System>
+<TimeChanged>66976,36759.886655451</TimeChanged>
+<TimeCreated>61320,76055.579005</TimeCreated>
+<Inheritance>right</Inheritance>
+
+<Parameter name="XMLFORMAT">
+<Default>literal</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Default>urn:oasis:names:tc:SAML:1.0:assertion</Default>
+</Parameter>
+
+<Parameter name="ELEMENTQUALIFIED">
+<Default>0</Default>
+</Parameter>
+
+<Property name="content">
+<Description>
+Normal case allow any XML content.</Description>
+<Type>%XML.String</Type>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLPROJECTION" value="content"/>
+</Property>
+
+<Property name="KeyInfo">
+<Description>
+As a special case allow a list of KeyInfo elements as need for WS-Security.</Description>
+<Type>%XML.Security.KeyInfo</Type>
+<Collection>list</Collection>
+<Parameter name="REFELEMENTQUALIFIED" value="1"/>
+<Parameter name="REFNAMESPACE" value="http://www.w3.org/2000/09/xmldsig#"/>
+<Parameter name="XMLPROJECTION" value="element"/>
+<Parameter name="XMLREF" value="1"/>
+</Property>
+
+<Property name="NotBefore">
+<Type>%xsd.dateTime</Type>
+<Parameter name="XMLPROJECTION" value="attribute"/>
+</Property>
+
+<Property name="NotOnOrAfter">
+<Type>%xsd.dateTime</Type>
+<Parameter name="XMLPROJECTION" value="attribute"/>
+</Property>
+
+<Property name="Recipient">
+<Type>%xsd.anyURI</Type>
+<Parameter name="XMLPROJECTION" value="attribute"/>
+</Property>
+
+<Property name="InResponseTo">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLPROJECTION" value="attribute"/>
+</Property>
+
+<Property name="Address">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLPROJECTION" value="attribute"/>
+</Property>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.SubjectLocality">
+<Description>
+Subject Locality</Description>
+<Super>%RegisteredObject,%XML.Adaptor</Super>
+<System>4</System>
+<TimeChanged>66976,36770.92786921</TimeChanged>
+<TimeCreated>61204,73045.714619</TimeCreated>
+<Inheritance>right</Inheritance>
+
+<Parameter name="XMLFORMAT">
+<Default>literal</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Default>urn:oasis:names:tc:SAML:1.0:assertion</Default>
+</Parameter>
+
+<Parameter name="ELEMENTQUALIFIED">
+<Default>0</Default>
+</Parameter>
+
+<Property name="Address">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLPROJECTION" value="attribute"/>
+</Property>
+
+<Property name="DNSName">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLPROJECTION" value="attribute"/>
+</Property>
+</Class>
+
+
+<Class name="IBSP.CONN.SAML11.CORE.XML.Security.Signature">
+<Super>%XML.Security.Signature</Super>
+<TimeChanged>66976,35872.621663108</TimeChanged>
+<TimeCreated>62574,44952.506476</TimeCreated>
+
+<Method name="GetNodeById">
+<Description>
+Get node based on id from URI.  Return nodeId</Description>
+<Internal>1</Internal>
+<FormalSpec>uri:%String,document:%XML.Document,node:%XML.Node</FormalSpec>
+<Private>1</Private>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+#define SAML11ns	"urn:oasis:names:tc:SAML:1.0:assertion"
+
+	Set nodeId=document.GetNodeById(uri)
+	// If reference to SAML assertion in enveloped-signature or SecurityToken\Reference,
+	/// also check for SAML Assertion ID attribute
+	If nodeId="" {
+		Set node.NodeId=document.GetDocumentNode()  ; Envelope
+		If node.MoveToFirstChild(1) && ; soap:Header
+		   (node.LocalName="Header") && 
+		   node.MoveToFirstChild(1) { ; first header
+			Do {
+				
+				If (node.LocalName="Security") && 
+				   (node.Namespace=$$$SOAPWSSEns) && 
+				   node.MoveToFirstChild(1) {  ; First security element
+				   //Write "LocalName=Security",!
+					Do {
+						If (node.LocalName="Assertion") && 
+						   (node.Namespace=$$$SAML11ns) &&
+						   (node.GetAttributeValue("AssertionID")=uri) {   ///PYD: changed "ID" to "AssertionID"
+							Set nodeId=node.NodeId
+						}
+					} While node.MoveToNextSibling(1)
+				} Else{
+					//Write "ELSE Case. LocalName=",node.LocalName," Namespace=",node.Namespace,!
+					//Write "AssertionID=",node.GetAttributeValue("AssertionID"),!
+					If (node.LocalName="Assertion") && 
+						 (node.Namespace=$$$SAML11ns) &&
+						 (node.GetAttributeValue("AssertionID")=uri) {     ///PYD: changed "ID" to "AssertionID"
+						 
+						Set nodeId=node.NodeId	
+					}
+				}
+			} While node.MoveToNextSibling(1)
+		}
+	}
+	quit nodeId
+]]></Implementation>
+</Method>
+</Class>
+
+
+</Export>
