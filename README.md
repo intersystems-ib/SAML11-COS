@@ -16,13 +16,13 @@ There are no dependencies with other libraries or special packages. It has been 
 
 # How to install them?
 
-You just need import all the classes using the file install/IBSP.CONN.SAML11.xml. 
+You just need import all the classes using the file **install/IBSP.CONN.SAML11.xml**. 
 
 1. Open IRIS Management Portal
 2. Go to System Explorer > Classes
 3. Select your namespace
 4. Click on Import button
-5. Browse either in your local machine or in the remote server the fila IBSP.CONN.SAML11.xml
+5. Browse either in your local machine or in the remote server the file **IBSP.CONN.SAML11.xml**
 6. Click on Next
 7. You should see all the classes included in the component. Click on Import.
 8. All the classes should be imported and compiled successfully. There are no dependencies with other modules, just with IRIS.
